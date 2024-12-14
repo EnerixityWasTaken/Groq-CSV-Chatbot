@@ -34,7 +34,7 @@ def main():
             csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
             if csv_file:
                 try:
-                    st.sidebar.subheader('CSV File')
+                    # st.sidebar.subheader('CSV File')
                     # df = pd.read_csv(csv_file)
                     # st.sidebar.dataframe(df)
         
