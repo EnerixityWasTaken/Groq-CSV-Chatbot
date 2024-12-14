@@ -1,5 +1,6 @@
 langchain_groq
 langchain-experimental
 langchain
-dotnev
 pandas
+streamlit
+python-dotenv
