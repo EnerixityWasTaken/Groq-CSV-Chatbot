@@ -50,9 +50,3 @@ def main():
         st.info("Upload a CSV file to get started.")
 
 main()
-
-            
-
-
-
-main()
