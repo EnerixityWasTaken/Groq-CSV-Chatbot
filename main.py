@@ -34,7 +34,6 @@ def main():
             # csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
             csv_file = st.file_uploader('Upload CSV file', type=['csv'])
             if csv_file:
-                try:
                     # st.sidebar.subheader('CSV File')
                     # df = pd.read_csv(csv_file)
                     # st.sidebar.dataframe(df)
@@ -51,8 +50,6 @@ def main():
                         except ValueError as e:
                             with st.chat_message('assistant'):
                                 st.error(f"Error: {e}")
-                except Exception as e:
-                    st.error(f"Failed to process the CSV file: {e}")
             else:
                 st.info("Upload a CSV file to get started.")
             
