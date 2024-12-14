@@ -20,20 +20,23 @@ def main():
     st.title('CSV Agent')
 
     api_key = st.text_input('Enter your Groq API key : ',type = "password")
-    
-    
-    csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
-    if csv_file:
-        st.sidebar.subheader('CSV File')
-        df = pd.read_csv(csv_file)
-        st.sidebar.dataframe(df)
-        user_query = st.chat_input('Ask a question about your CSV file')       
-        if user_query:            
-            with st.chat_message('user'):
-                st.write(user_query)
-            response = return_csv_agent(user_query=user_query, csv_file=csv_file,api_key = api_key)
-            with st.chat_message('assistant'):
-                st.write(response)
+    if api_key:      
+        csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
+        if csv_file:
+            st.sidebar.subheader('CSV File')
+            df = pd.read_csv(csv_file)
+            st.sidebar.dataframe(df)
+            user_query = st.chat_input('Ask a question about your CSV file')       
+            if user_query:            
+                with st.chat_message('user'):
+                    st.write(user_query)
+                try:
+                    response = return_csv_agent(user_query=user_query, csv_file=csv_file,api_key = api_key)
+                except:
+                    st.write("Invaild API key")
+                with st.chat_message('assistant'):
+                    st.write(response)
+            
 
 
 
