@@ -3,11 +3,14 @@ import pandas as pd
 from langchain_experimental.agents import create_csv_agent
 from langchain_groq import ChatGroq
 
+models = ["distil-whisper-large-v3-en","gemma2-9b-it","gemma-7b-it","llama-3.3-70b-versatile","llama-3.1-8b-instant","llama-guard-3-8b","llama3-70b-8192","llama3-8b-8192","mixtral-8x7b-32768","whisper-large-v3","whisper-large-v3-turbo"]
+
 
 def return_csv_agent(user_query, csv_file, api_key):
     try:
         csv_file.seek(0)
-        llm = ChatGroq(model='llama-3.1-8b-instant', api_key=api_key)
+        model = st.multiselect('Choose a model',models)
+        llm = ChatGroq(model=model, api_key=api_key)
         agent = create_csv_agent(llm, csv_file, verbose=True, allow_dangerous_code=True)
         response = agent.run(user_query)
         return response
