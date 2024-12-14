@@ -47,8 +47,8 @@ def main():
                         except ValueError as e:
                             with st.chat_message('assistant'):
                                 st.error(f"Error: {e}")
-            else:
-                st.info("Upload a CSV file to get started.")
+            # else:
+            #     st.info("Upload a CSV file to get started.")
             
 
 main()
