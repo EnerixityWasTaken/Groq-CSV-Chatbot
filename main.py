@@ -27,31 +27,32 @@ def main():
         st.warning("Please enter your API key to use the application.")
         return
     model = st.selectbox('Choose a model',models)
-    if model and st.button("Choose Model"):
+    if st.button("Choose Model"):
+        if model:
 
-        csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
-        if csv_file:
-            try:
-                st.sidebar.subheader('CSV File')
-                df = pd.read_csv(csv_file)
-                st.sidebar.dataframe(df)
-    
-                user_query = st.chat_input('Ask a question about your CSV file:')
-                if user_query:
-                    with st.chat_message('user'):
-                        st.write(user_query)
-                    
-                    try:
-                        response = return_csv_agent(user_query=user_query, csv_file=csv_file, api_key=api_key,model = model)
-                        with st.chat_message('assistant'):
-                            st.write(response)
-                    except ValueError as e:
-                        with st.chat_message('assistant'):
-                            st.error(f"Error: {e}")
-            except Exception as e:
-                st.error(f"Failed to process the CSV file: {e}")
-        else:
-            st.info("Upload a CSV file to get started.")
+            csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
+            if csv_file:
+                try:
+                    st.sidebar.subheader('CSV File')
+                    df = pd.read_csv(csv_file)
+                    st.sidebar.dataframe(df)
+        
+                    user_query = st.chat_input('Ask a question about your CSV file:')
+                    if user_query:
+                        with st.chat_message('user'):
+                            st.write(user_query)
+                        
+                        try:
+                            response = return_csv_agent(user_query=user_query, csv_file=csv_file, api_key=api_key,model = model)
+                            with st.chat_message('assistant'):
+                                st.write(response)
+                        except ValueError as e:
+                            with st.chat_message('assistant'):
+                                st.error(f"Error: {e}")
+                except Exception as e:
+                    st.error(f"Failed to process the CSV file: {e}")
+            else:
+                st.info("Upload a CSV file to get started.")
             
 
 main()
