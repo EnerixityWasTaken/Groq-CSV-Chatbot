@@ -28,12 +28,9 @@ def main():
         return
     model = st.selectbox('Choose a model',models)
     if st.button("Choose Model"):
-            if not model:
-                st.warning("Please choose a model.")
-                return
             # csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
-            csv_file = st.file_uploader('Upload CSV file', type=['csv'])
-            if csv_file:
+                    csv_file = st.file_uploader('Upload CSV file', type=['csv'])
+            # if csv_file:
                     # st.sidebar.subheader('CSV File')
                     # df = pd.read_csv(csv_file)
                     # st.sidebar.dataframe(df)
