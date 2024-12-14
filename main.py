@@ -31,7 +31,8 @@ def main():
             if not model:
                 st.warning("Please choose a model.")
                 return
-            csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
+            # csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
+            csv_file = st.file_uploader('Upload CSV file', type=['csv'])
             if csv_file:
                 try:
                     # st.sidebar.subheader('CSV File')
