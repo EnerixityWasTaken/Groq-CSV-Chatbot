@@ -3,10 +3,9 @@ import pandas as pd
 from langchain_experimental.agents import create_csv_agent
 from langchain_groq import ChatGroq
 
-models = ["distil-whisper-large-v3-en","gemma2-9b-it","gemma-7b-it","llama-3.3-70b-versatile","llama-3.1-8b-instant","llama-guard-3-8b","llama3-70b-8192","llama3-8b-8192","mixtral-8x7b-32768","whisper-large-v3","whisper-large-v3-turbo"]
+models = ["distil-whisper-large-v3-en", "gemma2-9b-it", "gemma-7b-it", "llama-3.3-70b-versatile", "llama-3.1-8b-instant", "llama-guard-3-8b", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768", "whisper-large-v3", "whisper-large-v3-turbo"]
 
-
-def return_csv_agent(user_query, csv_file, api_key,model):
+def return_csv_agent(user_query, csv_file, api_key, model):
     try:
         csv_file.seek(0)
         llm = ChatGroq(model=model, api_key=api_key)
@@ -16,35 +15,46 @@ def return_csv_agent(user_query, csv_file, api_key,model):
     except Exception as e:
         raise ValueError(f"Error in processing: {e}")
 
-
 def main():
     st.set_page_config(page_title='CSV Agent', page_icon=':robot_face:', layout='wide')
     st.title('CSV Agent')
     st.write("Ask questions about your CSV files using natural language.")
 
+    # Input for Groq API Key
     api_key = st.text_input('Enter your Groq API key:', type="password")
     if not api_key:
         st.warning("Please enter your API key to use the application.")
         return
-    model = st.selectbox('Choose a model',models)
+
+    # Select model
+    model = st.selectbox('Choose a model', models)
+
+    # Store model choice in session state
+    if 'model' not in st.session_state:
+        st.session_state.model = model
+
+    if model != st.session_state.model:
+        st.session_state.model = model
 
     if model:
         if st.button("Choose Model"):
-
+            # File uploader handling
             csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
             if csv_file:
                 try:
                     st.sidebar.subheader('CSV File')
+                    # Read the CSV content properly
                     df = pd.read_csv(csv_file)
                     st.sidebar.dataframe(df)
-        
+
                     user_query = st.chat_input('Ask a question about your CSV file:')
                     if user_query:
                         with st.chat_message('user'):
                             st.write(user_query)
-                        
+
                         try:
-                            response = return_csv_agent(user_query=user_query, csv_file=csv_file, api_key=api_key,model = model)
+                            # Correctly process the file using your agent
+                            response = return_csv_agent(user_query=user_query, csv_file=csv_file, api_key=api_key, model=model)
                             with st.chat_message('assistant'):
                                 st.write(response)
                         except ValueError as e:
@@ -54,6 +64,6 @@ def main():
                     st.error(f"Failed to process the CSV file: {e}")
             else:
                 st.info("Upload a CSV file to get started.")
-            
 
 main()
+
