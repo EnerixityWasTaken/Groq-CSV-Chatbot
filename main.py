@@ -52,5 +52,6 @@ def main():
                 st.error(f"Failed to process the CSV file: {e}")
         else:
             st.info("Upload a CSV file to get started.")
-    
-    main()
+            
+
+main()
