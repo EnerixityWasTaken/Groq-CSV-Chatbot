@@ -21,9 +21,9 @@ def main():
     st.title('CSV Agent')
     
     
-    csv_file = st.sidebar.file_uploader('Uploadd CSV file', type=['csv'])
+    csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
     if csv_file:
-        st.sidebar.subheader('## CSV File')
+        st.sidebar.subheader('CSV File')
         df = pd.read_csv(csv_file)
         st.sidebar.dataframe(df)
         user_query = st.chat_input('Ask a question about your CSV file')       
