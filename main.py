@@ -26,8 +26,8 @@ def main():
     if not api_key:
         st.warning("Please enter your API key to use the application.")
         return
-    model = st.multiselect('Choose a model',models)
-    if model:
+    model = st.selectbox('Choose a model',models)
+    if model and st.button("Choose Model"):
 
         csv_file = st.sidebar.file_uploader('Upload CSV file', type=['csv'])
         if csv_file:
