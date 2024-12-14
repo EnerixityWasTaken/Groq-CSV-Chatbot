@@ -35,8 +35,8 @@ def main():
             if csv_file:
                 try:
                     st.sidebar.subheader('CSV File')
-                    df = pd.read_csv(csv_file)
-                    st.sidebar.dataframe(df)
+                    # df = pd.read_csv(csv_file)
+                    # st.sidebar.dataframe(df)
         
                     user_query = st.chat_input('Ask a question about your CSV file:')
                     if user_query:
