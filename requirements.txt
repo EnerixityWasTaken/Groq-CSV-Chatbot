@@ -5,4 +5,3 @@ pandas
 streamlit
 python-dotenv
 tabulate
-dotenv-python
